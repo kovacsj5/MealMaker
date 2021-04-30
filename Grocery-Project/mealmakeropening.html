@@ -1,0 +1,61 @@
+<!doctype html> <!--be sure to have the minimum of 320px planned for-->
+<html lang = "en">
+<head>
+    <!-- GENERAL INFO -->
+    <title>MealMaker</title>
+    <meta charset = "utf-8">
+    <meta name = "meta name" content = "meta content">
+    
+    <!-- LINKS TO CSS FILE ("STYLESHEET")  -->
+    <link href = "CSS/mealmaker.css" type = "text/css" rel = "stylesheet">
+    
+    
+</head>
+<body>
+<div id = "homeContainer">
+    <div></div>
+    <div class = 'allTheCentereds'>
+        <div id = "Welcome">Welcome!</div>
+        <button id = "beginPlanButton">Let's Go!</button>
+    </div>
+    <div></div>
+    <div></div>
+    <div id = "userPrompt">Where are you shopping from today?</div>
+    <div></div>
+    <div></div>
+    <div class = "options">
+        <div class = "allTheCentereds">
+            <button class = "optionUnclicked" id = "meijer">Meijer</button>
+        </div>
+        <div class = "allTheCentereds">
+            <button class = "optionUnclicked" id = "target">Target</button>
+        </div>
+        <div class = "allTheCentereds">
+            <button class = "optionUnclicked" id = "amazon">Amazon</button>
+        </div>
+    </div>
+    <div></div>
+</div>
+<div id = "planPage">
+    <div id = "plan">
+        <div class = "calendar" id = "calendar"></div>
+        <div class = "List" id = "list">
+            <div class = "groceryList" id = 'meijerList'>Meijer</div>
+            <div class = "groceryList" id = 'targetList'>Target</div>
+            <div class = "groceryList" id = 'amazonList'>Amazon</div>
+        </div>
+    </div>
+    <div class = "nav" id = "calendarToListToggler">
+        <div class = "viewOpen navButton" id = 'calendarSelector'>Calendar View</div>
+        <div class = "viewClosed navButton" id = 'listSelector'>List View</div>
+    </div>
+</div>
+
+<div class="tenor-gif-embed" id = "loadingGif" data-postid="4774531" data-share-method="host" data-width="100%" data-aspect-ratio="2.3380281690140845"><a href="https://tenor.com/view/math-thinking-calculating-zachgalifianakis-the-hangover-gif-4774531">Math Thinking GIF</a> from <a href="https://tenor.com/search/math-gifs">Math GIFs</a></div><script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+
+<span id="ruler"></span>
+<script src="mealmakerMain.js"></script>
+<script src="mealSelection.js"></script>
+<script src="mealRendering.js"></script>
+<script src="mealClasses.js"></script>
+</body>

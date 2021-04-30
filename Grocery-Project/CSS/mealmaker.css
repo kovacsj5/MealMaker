@@ -1,0 +1,331 @@
+:root{
+    --darkGreen: #208767;
+    --lightGreen: #3ED37D;
+    --sBlack: #241239;
+    --sGrey: #5C5362;
+    --offWhite: #F9F9F9;
+    --lightYellow:rgb(246, 255, 118);
+}
+
+
+#homeContainer{
+    display: grid;
+    grid-template: repeat(3,calc(100vh/ 3)) / 10vw 80vw 10vw;
+    justify-content: center;
+    place-items: center;
+    font-size: calc(100vh/15);
+    border: 2px solid black;
+    text-align: center;
+    font-family: Helvetica, 'Akzidenz Grotesk', Univers, 'FF Bau', 'ARS Maquette', 'Proxima Nova', National, 'Neue Montreal';
+}
+
+
+#Welcome{
+    font-size: 10vh;
+    display:grid;
+    place-items: center;
+    font-family: Helvetica, 'Akzidenz Grotesk', Univers, 'FF Bau', 'ARS Maquette', 'Proxima Nova', National, 'Neue Montreal';
+}
+#beginPlanButton{
+    display:none;
+    font-size: 10vh;
+    border: 2px solid black;
+    padding: 4vh 4vw;
+    cursor: pointer;
+    border-radius: min(2vw, 2vh);
+    background-color:var(--darkGreen);
+    place-items: center;
+    color:var(--offWhite);
+    font-family: Helvetica, 'Akzidenz Grotesk', Univers, 'FF Bau', 'ARS Maquette', 'Proxima Nova', National, 'Neue Montreal';
+}
+
+.options{
+    display: grid;
+    grid-template-columns: repeat(3, calc(80vw/ 3 ));
+    height: calc(100vh/3);
+    place-items: center;
+    font-family: Helvetica, 'Akzidenz Grotesk', Univers, 'FF Bau', 'ARS Maquette', 'Proxima Nova', National, 'Neue Montreal';
+
+}
+
+.allTheCentereds{
+    display:grid;
+    place-items: center;
+}
+
+
+.optionUnclicked{
+    font-size: 4vh;
+    display: grid;
+    place-items: center;
+    border: 2px solid black;
+    padding: 4vh 4vw;
+    cursor: pointer;
+    border-radius: min(2vw, 2vh);
+}
+
+.optionClicked{
+    font-size: 2vh;
+    display: grid;
+    place-items: center;
+    border: 2px solid rgb(0, 0, 0);
+    padding: 4vh 4vw;
+    cursor: pointer;
+    border-radius: min(2vw, 2vh);
+}
+
+#meijer{
+    color:blue;
+    background-color:white;
+    font-weight: bold;
+}
+#target{
+    background-color:crimson;
+    color:white;
+    font-weight: bold;
+    padding: 4vh 4.2vw;
+}
+#amazon{
+    background-color:black;
+    color:rgb(226, 217, 90);
+    font-weight: bold;
+    padding: 4vh 2.7vw;
+}
+
+
+
+@media only screen and (max-width: 1000px) and (orientation: portrait){
+    #homeContainer{
+        display: grid;
+        grid-template: 20vh 20vh 60vh / 10vw 80vw 10vw;
+        /*background-color:cadetblue;*/
+        text-align: center;
+        place-items: center;
+        font-size: min(7vh,9vw);
+        border: 2px solid black;
+        font-family: Helvetica, 'Akzidenz Grotesk', Univers, 'FF Bau', 'ARS Maquette', 'Proxima Nova', National, 'Neue Montreal';
+    }
+    #userPrompt{
+        /*background-color:yellow;*/
+        height: 20vh;
+        font-family: Helvetica, 'Akzidenz Grotesk', Univers, 'FF Bau', 'ARS Maquette', 'Proxima Nova', National, 'Neue Montreal';
+    }
+    #Welcome{
+        font-size: min(7vh,9vw);
+        display:grid;
+        place-items: center;
+        height: 20vh;
+    }
+    #beginPlanButton{
+        display: none;
+        font-size: min(7vh,9vw);
+        border: 2px solid black;
+        padding: 3vh 4vw;
+        cursor: pointer;
+        border-radius: min(2vw, 2vh);
+        background-color: rgb(8, 209, 8);
+        place-items: center;
+
+    }
+    .options{
+        display: grid;
+        grid-template-columns: 80vw;
+        grid-template-rows: repeat(3, 20vh); /* The rows weren't actually taking a height of 25vh until I set the height below*/
+        height: 60vh;  /*Why did I need to define this height when I already set there to be 3 rows each with 20vh?*/
+        place-items:center;
+        font-family: Helvetica, 'Akzidenz Grotesk', Univers, 'FF Bau', 'ARS Maquette', 'Proxima Nova', National, 'Neue Montreal';
+    }
+    .optionUnclicked{
+        font-size: 4vh;
+        display: grid;
+        place-items: center;
+        border: 2px solid black;
+        padding: 4vh 4vw;
+        cursor: pointer;
+        border-radius: min(2vw, 2vh);
+    }
+    #target{
+        background-color:crimson;
+        color:white;
+        font-weight: bold;
+        padding: 3vh 4.2vw;
+    }
+
+    .optionClicked{
+        font-size: 2vh;
+        display: grid;
+        place-items: center;
+        border: 2px solid rgb(0, 0, 0);
+        padding: 3vh 3vw;
+        cursor: pointer;
+        border-radius: min(2vw, 2vh);
+    }
+    #amazon{
+        background-color:black;
+        color:rgb(226, 217, 90);
+        font-weight: bold;
+        padding: 3vh 2.3vw;
+    }
+    
+
+}
+
+
+/* The below is for the calendar page*/
+#planPage{
+    display: none;
+    flex-direction: column;
+    font-family: Helvetica, 'Akzidenz Grotesk', Univers, 'FF Bau', 'ARS Maquette', 'Proxima Nova', National, 'Neue Montreal';
+}
+
+#plan{
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+}
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: min(1px,1vh);
+    border-style: solid none;
+    
+    border-color:var(--sBlack);
+    font-size: min(4vh,4vw);
+    background-color: var(--darkGreen);
+    color:var(--offWhite)
+    
+}
+
+.course{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    
+    padding: .2vh .2vw;
+    background-color:var(--offWhite);
+    border: min(.05vw,.05vh);
+    cursor: pointer;
+    border-radius:min(1.5vw, 1.5vh);
+    
+    height: 94%;
+    width: 98%;
+    color: var(--sGrey);
+}
+
+.snack{
+    
+    justify-content: center;
+    align-items: center;
+    border: min(.05vw,.05vh);
+    border-color: solid var(--sBlack);
+    padding: .2vh .2vw;
+    background-color:var(--lightYellow);
+    cursor: pointer;
+    row-gap: 1vh;
+    height: 94%;
+    width: 94%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+    color: var(--sGrey);
+    border-radius:min(1.5vw, 1.5vh);
+    
+}
+
+.day1{
+    
+    display: grid;
+    grid-template-rows: calc(3*(100vh - 35px)/10);
+    grid-template-columns: 100%;
+    justify-content: center;
+    align-items: center;
+    border: min(1px,1vh);
+    border-style: solid none;
+    border-color:var(--darkGreen);
+    background-color:var(--lightGreen);
+    
+    
+}
+.day2{
+    
+    display: grid;
+    grid-template-rows: repeat(3,calc(3*(100vh - 35px)/20));
+    grid-template-columns: 100%;
+    justify-content: center;
+    align-items: center;
+    border: min(1px,1vh);
+    border-style: solid none;
+    border-color:var(--darkGreen);
+    background-color:var(--lightGreen);
+    
+}.day3{
+    
+    display: grid;
+    grid-template-rows: repeat(3,calc((100vh - 35px)/10));
+    grid-template-columns: calc((100vw - 50px)/7.5);
+    justify-content: center;
+    align-items: center;
+    border: min(1px,1vh);
+    border-style: solid none;
+    border-color:var(--darkGreen);
+    background-color:var(--lightGreen);
+    
+}
+
+.calendar{
+    flex-grow: 7;
+    display: grid;
+    grid-template: 5vh repeat(3, calc(( 85vh ) / 3)) / 3vw repeat(8, 1fr);
+    width: 100%;
+
+}
+
+.SnackTitle{
+    color:var(--lightYellow);
+}
+
+
+#loadingGif{
+    display:none;
+    grid-template-rows: 100vh;
+    grid-template-columns: 100vw;
+    justify-content: center;
+    align-items: center;
+}
+
+#ruler { visibility: hidden; white-space: nowrap; }
+
+
+#calendarToListToggler{
+    display: flex;
+    height: 8vh;
+    font-size: 6vh;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    text-align:center;
+    color: var(--sBlack);
+    border-style:inset;
+}
+
+.navButton{
+    justify-content: center;
+    align-items: center;
+}
+.viewOpen{
+    background-color:var(--darkGreen);
+    flex-grow: 1;
+}
+
+.viewClosed{
+    background-color: none;
+    flex-grow: 1;
+    
+}
+
+
+#list{
+    display:none;
+}
