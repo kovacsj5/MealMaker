@@ -117,7 +117,8 @@ async function initiatePlan(listOfStoreButtons,url){ //Weaves user input togethe
   //the user will be able to indicate the desired time window that they want a plan for. Below this for 
   //loop is where the rendering will occur. Also, the number of days to have inside the calendar is static for now, but will be
   //dynamic in the future.
-  coursesThisShop = courseInstances;
+  coursesThisShop = courseInstances;//global variable for all available courses this shop
+  selectedStores = chosenStores;//global variable for specific set of chosen stores for this shop
   let setOfColumnz = []; 
   for (let i = 0; i<3; i++){
     setOfColumnz.push(CreateDay([],courseInstances));//adds all days to the calendar, snacks are added after this loop
@@ -127,8 +128,8 @@ async function initiatePlan(listOfStoreButtons,url){ //Weaves user input togethe
   for (i in weeklyBreakdown){
     mealPlan.push(setOfColumnz[weeklyBreakdown[i]]);//pushes class day of each column (including snack column) to the global variable called currentPlan
   }
-  //setPortraitGridTemplateAreas(weeklyBreakdown);
-
+  //setPortraitGridTemplateAreas(weeklyBreakdown); this comes later with UI update
+  
   renderPlanPage(mealPlan,weeklyBreakdown);
   renderListPage(mealPlan);
   planPage.style.display = 'flex';
@@ -214,7 +215,8 @@ var mealPlan = [];//this is a global variable that contains the entire set of co
 //variable. It is importannt that this variable sticks around when teh user is toggling between the views.
 
 let shoppingOptionButtons = [meijerButton, targetButton, amazonButton];
-let coursesThisShop = []//will be filled with all actual instances of class course (snack or not) that are available at chosen stores. this list will be passed into functions like the swap function and probably others.
+let selectedStores = [];//will be filled with a list of strings reflecting all selected stores the user chooses before initiating the meal plan.
+let coursesThisShop = [];//will be filled with all actual instances of class course (snack or not) that are available at chosen stores. this list will be passed into functions like the swap function and probably others.
 meijerButton.addEventListener('click',()=>{
     toggleSelection(meijerButton);
 });

@@ -38,12 +38,15 @@ function renderMealHelper(item, button, location, type){//takes in the string va
         button.kind = "course";
     }
 }
-//takes in instance of class day, and a string naming breakfast, lunch or dinner, and returns a div containing buttons with the
+//takes in instance of class day, and a string naming breakfast, lunch or dinner, and the days location in the global meal plan array and returns a div containing buttons with the
 //proper names on them (the div is also formatted correctly)
 function renderMeal(day,time,location,weeklyBreakdown){
-    console.log("here is the --portraitTemplateAreas");
-    console.log(document.querySelector(":root").style.getPropertyValue('--portraitTemplateAreas'));
-    console.log(weeklyBreakdown);
+    //weeklyBreakdown was included in the inputs but is currently not being used. I was mid construction of the new revamped UI when I 
+    //moved into cleaning up the project to put it into presentation mode. When I go back to updating the UI, it will be used. The 
+    //following 3 lines of code are a part of my workflow for that big UI update, so I kept them here for now aswell.
+    // console.log("here is the --portraitTemplateAreas");
+    // console.log(document.querySelector(":root").style.getPropertyValue('--portraitTemplateAreas'));
+    // console.log(weeklyBreakdown);
 
     let proteinButton = document.createElement("BUTTON");
     proteinButton.classList.add('course');
@@ -85,6 +88,8 @@ function renderMeal(day,time,location,weeklyBreakdown){
 }
 
 function renderSnack(day,time,location,weeklyBreakdown){
+    //weeklyBreakdown was included in the inputs but is currently not being used. I was mid construction of the new revamped UI when I 
+    //moved into cleaning up the project to put it into presentation mode. When I go back to updating the UI, it will be used.
     let firstButton = document.createElement("BUTTON");
     firstButton.classList.add('snack');
     let secondButton = document.createElement("BUTTON");
@@ -193,7 +198,8 @@ function GetItemOrigin(item,listOfLists){//takes in instance of class course and
     return listOfLists;
 }
 
-function getLists(currentPlan){
+function getLists(currentPlan, chosenStores){
+    console.log(chosenStores);
     let targetList = [];
     let meijerList = [];
     let amazonList = [];
@@ -215,8 +221,6 @@ function getLists(currentPlan){
 }
 
 function renderStoreList(groceryList,position){
-    console.log("grocery List:");
-    console.log(groceryList);
     const listPage = document.querySelector('#list')
     let list = document.createElement('div'); 
     let title = document.createElement('div');
@@ -228,7 +232,6 @@ function renderStoreList(groceryList,position){
         if(groceryList[item].name in condencedList){//if the item is in the list already, then the number needs to be increased
             let nameOfItem = groceryList[item].name;
             condencedList[nameOfItem] ++;
-            console.log(nameOfItem + ": " + condencedList[nameOfItem]);
         }else{
             let nameOfItem = groceryList[item].name;
             condencedList[nameOfItem] = 1;//if item is not in the list already, we add it and say there is only 1 so far
@@ -252,18 +255,15 @@ function renderStoreList(groceryList,position){
 }
 
 function renderListPage(incomingPlan){
-    lists = getLists(incomingPlan);//returns a list of lists of instances of class course: [[Target items],[Meijer items],[Amazon items]]
-    targetList = lists[0];
-    meijerList = lists[1];
-    amazonList = lists[2];
+    let lists = getLists(incomingPlan);//returns a list of lists of instances of class course: [[Target items],[Meijer items],[Amazon items]]
     const listDiv = document.querySelector('#list');
     while(listDiv.firstChild){//clears out the list page before rendering a new one.
         listDiv.removeChild(listDiv.firstChild);
     }
     let numberOfLists = 0;
-    for(list in lists){
-        if(lists[list].length > 0){
-            renderStoreList(lists[list],list);//makes displayable list for this particular store, noting which position it came from (0=target, 1=meijer, 2=amazon)
+    for(i in lists){
+        if(lists[i].length > 0){
+            renderStoreList(lists[i],i);//makes displayable list for this particular store, noting which position it came from (0=target, 1=meijer, 2=amazon)
             numberOfLists ++;
         }
     }
