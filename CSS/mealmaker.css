@@ -1,0 +1,317 @@
+:root{
+    --darkGreen: #208767;
+    --lightGreen: #3ED37D;
+    --sBlack: #241239;
+    --sGrey: #5C5362;
+    --offWhite: #F9F9F9;
+    --lightYellow:rgb(246, 255, 118);
+    --numberOfLists:1;
+    --portraitTemplateAreas: none;
+}
+
+#homeContainer{
+    display: grid;
+    grid-template: repeat(3,calc(100vh/ 3)) / 10vw 80vw 10vw;
+    justify-content: center;
+    place-items: center;
+    font-size: calc(100vh/15);
+    border: 2px solid black;
+    text-align: center;
+    font-family: Helvetica, 'Akzidenz Grotesk', Univers, 'FF Bau', 'ARS Maquette', 'Proxima Nova', National, 'Neue Montreal';
+}
+
+#Welcome{
+    font-size: 10vh; 
+}
+
+#beginPlanButton{
+    display:none;
+    font-size: 10vh;
+    border: 2px solid black;
+    padding: 4vh 4vw;
+    cursor: pointer;
+    border-radius: min(2vw, 2vh);
+    background-color:var(--darkGreen);
+    color:var(--offWhite);
+}
+
+.options{
+    display: grid;
+    grid-template-columns: repeat(3, calc(80vw/ 3 ));
+}
+
+.centeredHomePageItem{
+    display:grid;
+    place-items: center;
+}
+
+.optionUnclicked{
+    font-size: 4vh;
+    border: 2px solid black;
+    padding: 4vh 4vw;
+    cursor: pointer;
+    border-radius: min(2vw, 2vh);
+}
+
+.optionClicked{
+    font-size: 2vh;
+    border: 2px solid rgb(0, 0, 0);
+    padding: 4vh 4vw;
+    cursor: pointer;
+    border-radius: min(2vw, 2vh);
+}
+
+#meijer{
+    color:blue;
+    background-color:white;
+    font-weight: bold;
+}
+#target{
+    background-color:crimson;
+    color:white;
+    font-weight: bold;
+    padding: 4vh 4.2vw;
+}
+#amazon{
+    background-color:black;
+    color:rgb(226, 217, 90);
+    font-weight: bold;
+    padding: 4vh 2.7vw;
+}
+
+/* The below is for the calendar page*/
+#planPage{
+    display: none;
+    flex-direction: column;
+    font-family: 'Oswald Regular', Helvetica, 'Akzidenz Grotesk', Univers, 'FF Bau', 'ARS Maquette', 'Proxima Nova', National, 'Neue Montreal';
+}
+
+#plan{
+    display: flex;
+    flex-direction: row;
+    /*overflow: auto;*/
+}
+
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: min(1px,1vh);
+    border-style: solid none;
+    border-color:var(--sBlack);
+    font-size: min(4vh,4vw);
+    background-color: var(--darkGreen);
+    color:var(--offWhite);
+}
+
+.course{
+    display: grid;
+    align-items: center;
+    font-family: lato;
+    padding: .2vh .2vw;
+    background-color:var(--offWhite);
+    border: min(.05vw,.05vh);
+    cursor: pointer;
+    border-radius:min(1.5vw, 1.5vh);
+    height: 94%;
+    width: 98%;
+    color: var(--sGrey);
+}
+
+.snack{
+    justify-content: center;
+    align-items: center;
+    border: min(.05vw,.05vh);
+    border-color: solid var(--sBlack);
+    padding: .2vh .2vw;
+    background-color:var(--lightYellow);
+    cursor: pointer;
+    height: 94%;
+    width: 98%;
+    color: var(--sGrey);
+    border-radius:min(1.5vw, 1.5vh);
+    font-family: lato;
+}
+
+.mealWith1Courses{
+    display: grid;
+    align-items:center;
+    grid-template-rows: calc(3*(94vh)/10);
+    grid-template-columns: 100%;
+    border: 1px;
+    border-style: solid none;
+    border-color:var(--darkGreen);
+    background-color:var(--lightGreen);
+}
+
+.mealWith2Courses{
+    display: grid;
+    align-items:center;
+    grid-template-rows: repeat(2,calc(3*(94vh)/20));
+    grid-template-columns: 100%;
+    border: 1px;
+    border-style: solid none;
+    border-color:var(--darkGreen);
+    background-color:var(--lightGreen);
+}
+
+.mealWith3Courses{
+    display: grid;
+    grid-template-rows: repeat(3,calc((94vh)/10));
+    grid-template-columns: 100%;
+    border: 1px;
+    border-style: solid none;
+    border-color:var(--darkGreen);
+    background-color:var(--lightGreen);
+    
+}
+
+.calendar{
+    display: grid;
+    grid-template: 5vh repeat(3, calc(85vh/3)) / 3vw repeat(8, 1fr);
+    width: 100%;
+}
+
+.SnackTitle{
+    color:var(--lightYellow);
+}
+
+
+#loadingGif{
+    display:none;
+    grid-template-rows: 100vh;
+    grid-template-columns: 100vw;
+    justify-content: center;
+    align-items: center;
+}
+
+#ruler { 
+    visibility: hidden; 
+    white-space: nowrap; 
+}
+
+
+#calendarToListToggler{
+    display: flex;
+    height: 8vh;
+    font-size: 6vh;
+    cursor: pointer;
+    width:100%;
+    text-align:center;
+    align-items: center;
+    color: var(--sBlack);
+    border-style:inset;
+    position: fixed;
+    bottom: 0;
+}
+
+.viewOpen{
+    background-color:var(--darkGreen);
+    flex-grow: 1;
+}
+
+.viewClosed{
+    background-color:none;
+    flex-grow: 1;   
+}
+
+#list{
+    display:none;
+    height:90vh;
+    width:100%;
+}
+
+.listSection{
+    overflow-wrap:break-word;
+    width: 100% / var(--numberOfLists);
+    padding: 2vw;
+}
+
+.listTitle{
+    font-size: 5vh;
+    padding: 2vw;
+}
+
+.listItem{
+   font-size: 3vh; 
+}
+
+@media only screen and (orientation: portrait){
+    #homeContainer{
+        grid-template: 20vh 20vh 60vh / 10vw 80vw 10vw;
+        font-size: min(6vh,9vw);
+    }
+    #userPrompt{
+        height: 20vh;
+    }
+    #Welcome{
+        font-size: min(7vh,9vw);
+        display:grid;
+        place-items: center;
+        height: 20vh;
+    }
+
+    #beginPlanButton{
+        font-size: min(7vh,9vw);
+        padding: 3vh 4vw;
+    }
+
+    .options{
+        grid-template-columns: 80vw;
+        grid-template-rows: repeat(3, 20vh); 
+        height: 60vh;
+    }
+    #target{
+        padding: 3vh 4.2vw;
+    }
+    .optionClicked{
+        padding: 3vh 3vw;
+    }
+    #amazon{
+        padding: 3vh 2.3vw;
+    }
+
+    .calendar{
+        grid-template: 2vh repeat(8, calc(91vh / 8)) / 5vw repeat(3, 1fr);
+        grid-auto-flow: column;
+        grid-template-areas:var(--portraitTemplateAreas);
+    }
+    .mealWith1Courses{
+        grid-template-rows: calc(3*(100vh - 35px)/27);
+    }
+    .mealWith2Courses{
+        grid-template-rows: repeat(2,calc(3*(100vh - 35px)/54));
+    }
+    .mealWith3Courses{
+        grid-template-rows: repeat(3,calc((100vh - 35px)/27));
+    }
+    
+    #calendarToListToggler{
+        height: 6vh;
+        font-size: 4vh;
+    }
+
+    .title{
+        font-size: min(3vh,3vw);
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+    }
+    .SnackTitle{
+        font-size: 1.5vh;
+    }
+
+    #list{
+        flex-direction: column;
+        height:94vh;
+    }
+    .listTitle{
+        padding: 1vw;
+    }
+    .listItem{
+        font-size: 2vh; 
+     }
+     .listSection{
+        width: 100%;
+        padding: 3vw;
+    }
+}
