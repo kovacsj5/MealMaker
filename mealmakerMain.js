@@ -130,7 +130,7 @@ async function initiatePlan(listOfStoreButtons,url){ //Weaves user input togethe
   }
   //setPortraitGridTemplateAreas(weeklyBreakdown); this comes later with UI update
   
-  renderPlanPage(mealPlan,weeklyBreakdown);
+  renderPlanPage(mealPlan);
   renderListPage(mealPlan);
   planPage.style.display = 'flex';
   homePage.style.display = 'none';
@@ -213,8 +213,8 @@ var mealPlan = [];//this is a global variable that contains the entire set of co
 //First it gets filled up, then rendered. When any course or snack is selected to be swapped, 
 //this variable is selected and then the relevant item is chosen, then the entire page is rerendered based on this now modified global 
 //variable. It is importannt that this variable sticks around when teh user is toggling between the views.
-
-let shoppingOptionButtons = [meijerButton, targetButton, amazonButton];
+let weeklyBreakdown = [];//will be filled with a list of numbers, encoding which day of meals occurrs on which part of the calendar.
+const shoppingOptionButtons = [meijerButton, targetButton, amazonButton];
 let selectedStores = [];//will be filled with a list of strings reflecting all selected stores the user chooses before initiating the meal plan.
 let coursesThisShop = [];//will be filled with all actual instances of class course (snack or not) that are available at chosen stores. this list will be passed into functions like the swap function and probably others.
 meijerButton.addEventListener('click',()=>{

@@ -43,29 +43,21 @@ function WiddleDownCourses(time, grainStarchAllowed, processedProteinAllowed, ne
     var Pcourses = [];
     for (course in Ocourses){
         if (Ocourses[course].usedThisWeek){//eliminates any courses that are already in the meal plan for the week
-            //console.log(Ocourses[course].name + "not chosen for " + time);
             // do nothing
         }else if (type === "veggie" && (!Ocourses[course].veggie || Ocourses[course].wholeMeal)){
             // do nothing
-            //console.log(Ocourses[course].name + "not chosen for " + time);
         }else if (type === "protein" && !Ocourses[course].protein){
             // do nothing
-            //console.log(Ocourses[course].name + "not chosen for " + time);
         }else if (!Ocourses[course].times.includes(time)){
             // do nothing
-            //console.log(Ocourses[course].name + "not chosen for " + time);
         }else if (!grainStarchAllowed && Ocourses[course].grainStarch){
             // do nothing
-            //console.log(Ocourses[course].name + "not chosen for " + time);
         }else if (type === "veggie" && needsRawVeggie && !Ocourses[course].rawVeggie){
             // do nothing
-            //console.log(Ocourses[course].name + "not chosen for " + time);
         }else if (type === "protein" && !processedProteinAllowed && Ocourses[course].processedProtein){
             // do nothing
-            //console.log(Ocourses[course].name + "not chosen for " + time);
         }else{
             Pcourses.push(Ocourses[course]);
-            //console.log("new course is: " + Ocourses[course].name);
         }
     }
     return Pcourses;
@@ -160,39 +152,38 @@ function WiddleDownCourses(time, grainStarchAllowed, processedProteinAllowed, ne
           }
       }
       return exhaustedMenuMessage; // if nothing else
-          
   }
   
   //this function takes in the selected button, and locates a all identical button and replaces them with buttons representing different items (with the same profile) than before
   function swapCourse(button, availableCourses, currentPlan){
-        let item = button.item;//gets instance of class course associated with this button.
-        if(item.name !== "No item will sate your sadistic vetoing"){//this way, even if the user vetoes the joke item, it will stay for the duration of the user experience, since there would literally be nothing else to replace that spot in the calendar that the user hasn't already vetoed.
-            for (i in availableCourses){
-                if (item.name === availableCourses[i].name){
-                    availableCourses[i].vetoedThisShop = true;//this marks the instance of class course that is in available courses as vetoed if it matches the actual item that was vetoed
-                    availableCourses[i].usedThisWeek = false;
-                }
+    let item = button.item;//gets instance of class course associated with this button.
+    if(item.name !== "No item will sate your sadistic vetoing"){//this way, even if the user vetoes the joke item, it will stay for the duration of the user experience, since there would literally be nothing else to replace that spot in the calendar that the user hasn't already vetoed.
+        for (i in availableCourses){
+            if (item.name === availableCourses[i].name){
+                availableCourses[i].vetoedThisShop = true;//this marks the instance of class course that is in available courses as vetoed if it matches the actual item that was vetoed
+                availableCourses[i].usedThisWeek = false;
             }
         }
-        //let parent = button.parentNode; There is some work to be done here to find all identical buttons on the calendar in order to replace those too.
-        let replacementItem = replacementFinder(item, button.kind, availableCourses);
-        if(button.kind === "snack"){//there is only one instance of each snack in the entire plan, so there is no need to sift through the entire page to look for more than one instance
-            for(i in currentPlan[currentPlan.length-1]){
-                if(i<2){//first two rows of the snacklist are lists of length 2 items each
-                    for(h in currentPlan[currentPlan.length-1][i]){
-                        if(currentPlan[currentPlan.length-1][i][h].name === item.name){
-                        currentPlan[currentPlan.length-1][i][h] = replacementItem;
-                        }
+    }
+    //let parent = button.parentNode; There is some work to be done here to find all identical buttons on the calendar in order to replace those too.
+    let replacementItem = replacementFinder(item, button.kind, availableCourses);
+    if(button.kind === "snack"){//there is only one instance of each snack in the entire plan, so there is no need to sift through the entire page to look for more than one instance
+        for(i in currentPlan[currentPlan.length-1]){
+            if(i<2){//first two rows of the snacklist are lists of length 2 items each
+                for(h in currentPlan[currentPlan.length-1][i]){
+                    if(currentPlan[currentPlan.length-1][i][h].name === item.name){
+                    currentPlan[currentPlan.length-1][i][h] = replacementItem;
                     }
                 }
-                else{//for the item in the third row
-                    if(currentPlan[currentPlan.length-1][i].name === item.name){
-                        currentPlan[currentPlan.length-1][i] = replacementItem;
-                    }
-                }
-                //this will be tricky... Ill have to be mindful of the fact that there could be one or two things in each of the three parts of the last element in currentPlan which is snacks
             }
-        }else{
+            else{//for the item in the third row
+                if(currentPlan[currentPlan.length-1][i].name === item.name){
+                    currentPlan[currentPlan.length-1][i] = replacementItem;
+                }
+            }
+            //this will be tricky... Ill have to be mindful of the fact that there could be one or two things in each of the three parts of the last element in currentPlan which is snacks
+        }
+    }else{
         let j = 0;//starting column
         while (j < currentPlan.length - 2){//while column counter is not the snack column
             if(currentPlan[j].breakfast.proteinCourse.name === item.name){//all of these sift through each column in the calendar and locate where the item to be replaced is located currently in the calendar
@@ -210,8 +201,7 @@ function WiddleDownCourses(time, grainStarchAllowed, processedProteinAllowed, ne
             }
             j++;
         }
-        
-      } 
-      renderPlanPage(currentPlan);
-      renderListPage(currentPlan);
+    } 
+    renderPlanPage(currentPlan);
+    renderListPage(currentPlan);
   }
