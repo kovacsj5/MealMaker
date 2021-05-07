@@ -24,10 +24,10 @@ function renderMealHelper(item, button, location, type){//takes in the string va
     button.item = item; //this assignes an arbitrary property to each button in the plan so that the instance of class course is more easily accessible when swapping the course if necessary
     button.setAttribute("id", name + "_" + location);//note that location comes in as an integer so I am counting on
     const width = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-    if(width > 780){
-        button.style.fontSize = Math.sqrt(name.split(" ").length)*.4*100/Math.sqrt(name.visualLength()*(name.split(" ").length)) + "vmin";
+    if(name.split(" ").length > 3){
+        button.style.fontSize = Math.sqrt(name.split(" ").length)*.35*100/Math.sqrt(name.visualLength()*(name.split(" ").length)) + "vmin";
     }else{
-        button.style.fontSize = Math.sqrt(name.split(" ").length)*.4*100/Math.sqrt(name.visualLength()*(name.split(" ").length)) + "vmin";
+        button.style.fontSize = .285*100/Math.sqrt(name.visualLength()) + "vmin";
     }
     //button.style.fontSize = Math.sqrt(name.split(" ").length)*.4*100/Math.sqrt(name.visualLength()*(name.split(" ").length)) + "vmin";
     //in the line above I did my best to get the font to change to make the title of the food fit the actual contianer it has
