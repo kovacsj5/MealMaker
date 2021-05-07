@@ -9,6 +9,7 @@
     --portraitTemplateAreas: none;
 }
 
+/*The below is for the home page*/
 #homeContainer{
     display: grid;
     grid-template: repeat(3,calc(100vh/ 3)) / 10vw 80vw 10vw;
@@ -185,12 +186,13 @@
     align-items: center;
 }
 
+/*the ruler is for the font sizing of the calendar page*/
 #ruler { 
     visibility: hidden; 
     white-space: nowrap; 
 }
 
-
+/*The below is for the nav bar*/
 #calendarToListToggler{
     display: flex;
     height: 8vh;
@@ -215,15 +217,17 @@
     flex-grow: 1;   
 }
 
+/*The below is for the list page*/
 #list{
     display:none;
     height:90vh;
     width:100%;
+    
 }
 
 .listSection{
     overflow-wrap:break-word;
-    width: 100% / var(--numberOfLists);
+    flex-basis:100%;
     padding: 2vw;
 }
 
@@ -233,10 +237,13 @@
 }
 
 .listItem{
-   font-size: 3vh; 
+   font-size: calc(2.2vh + .2vh*var(--numberOfLists)); 
 }
 
+
+/*Below is for any case where the height of the viewport is more than the width of the viewport*/
 @media only screen and (orientation: portrait){
+    /*The below is for the home page in portrait mode*/
     #homeContainer{
         grid-template: 20vh 20vh 60vh / 10vw 80vw 10vw;
         font-size: min(6vh,9vw);
@@ -271,6 +278,7 @@
         padding: 3vh 2.3vw;
     }
 
+    /*The below is for the calendar page in portrait mode*/
     .calendar{
         grid-template: 2vh repeat(8, calc(91vh / 8)) / 5vw repeat(3, 1fr);
         grid-auto-flow: column;
@@ -286,11 +294,6 @@
         grid-template-rows: repeat(3,calc((100vh - 35px)/27));
     }
     
-    #calendarToListToggler{
-        height: 6vh;
-        font-size: 4vh;
-    }
-
     .title{
         font-size: min(3vh,3vw);
         writing-mode: vertical-rl;
@@ -300,6 +303,14 @@
         font-size: 1.5vh;
     }
 
+    /*The below is for the nav bar in portrait mode*/
+    #calendarToListToggler{
+        height: 6vh;
+        font-size: 4vh;
+    }
+
+    
+    /*The below is for the list page in portrait mode*/
     #list{
         flex-direction: column;
         height:94vh;

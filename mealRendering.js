@@ -40,8 +40,8 @@ function renderMealHelper(item, button, location, type){//takes in the string va
 }
 //takes in instance of class day, and a string naming breakfast, lunch or dinner, and the days location in the global meal plan array and returns a div containing buttons with the
 //proper names on them (the div is also formatted correctly)
-function renderMeal(day,time,location,weeklyBreakdown){
-    //weeklyBreakdown was included in the inputs but is currently not being used. I was mid construction of the new revamped UI when I 
+function renderMeal(day,time,location){
+    //weeklyBreakdown weeklyBreakdown is a global variable so it does not need to be passed in. I was mid construction of the new revamped UI when I 
     //moved into cleaning up the project to put it into presentation mode. When I go back to updating the UI, it will be used. The 
     //following 3 lines of code are a part of my workflow for that big UI update, so I kept them here for now aswell.
     // console.log("here is the --portraitTemplateAreas");
@@ -87,7 +87,7 @@ function renderMeal(day,time,location,weeklyBreakdown){
     return mealDiv;
 }
 
-function renderSnack(day,time,location,weeklyBreakdown){
+function renderSnack(day,time,location){
     //weeklyBreakdown was included in the inputs but is currently not being used. I was mid construction of the new revamped UI when I 
     //moved into cleaning up the project to put it into presentation mode. When I go back to updating the UI, it will be used.
     let firstButton = document.createElement("BUTTON");
@@ -121,25 +121,25 @@ function renderSnack(day,time,location,weeklyBreakdown){
 
 // takes in an instance of class day and returns an HTML version of the day to be pushed into the dom
 // each day will be broken down into 3 sets of names. 
-function renderDay(plan,location,weeklyBreakdown){ //location is an integer which is only passed in to set a unique id on each course button that gets created in the calendar
+function renderDay(plan,location){ //location is an integer which is only passed in to set a unique id on each course button that gets created in the calendar
     let day = plan[location];
     let columnDivs = [];
     if(location == 7){
-        let breakfastDiv = renderSnack(day,"breakfast",location,weeklyBreakdown); 
-        let lunchDiv = renderSnack(day,"lunch",location,weeklyBreakdown);        
-        let dinnerDiv = renderSnack(day,"dinner",location,weeklyBreakdown);
+        let breakfastDiv = renderSnack(day,"breakfast",location); 
+        let lunchDiv = renderSnack(day,"lunch",location);        
+        let dinnerDiv = renderSnack(day,"dinner",location);
         columnDivs = [breakfastDiv,lunchDiv,dinnerDiv];
     }else{
-        let breakfastDiv = renderMeal(day,"breakfast",location,weeklyBreakdown); 
-        let lunchDiv = renderMeal(day,"lunch",location,weeklyBreakdown);        
-        let dinnerDiv = renderMeal(day,"dinner",location,weeklyBreakdown);
+        let breakfastDiv = renderMeal(day,"breakfast",location); 
+        let lunchDiv = renderMeal(day,"lunch",location);        
+        let dinnerDiv = renderMeal(day,"dinner",location);
         columnDivs = [breakfastDiv,lunchDiv,dinnerDiv];
     }
     return columnDivs;
 }
 
 
-function renderPlanPage(currentPlan,weeklyBreakdown){
+function renderPlanPage(currentPlan){
   const calendarDiv = document.querySelector('#calendar');
   while(calendarDiv.firstChild){//clears out the calendar before rendering a new one.
       calendarDiv.removeChild(calendarDiv.firstChild);
@@ -164,7 +164,7 @@ function renderPlanPage(currentPlan,weeklyBreakdown){
   dinnerLabelDiv.classList.add('title');
   let calendar = [];
   for (a in currentPlan){
-      calendar.push(renderDay(currentPlan,a,weeklyBreakdown));
+      calendar.push(renderDay(currentPlan,a));
   }
   let columnCounter = 0; //this is to make sure that the title div is entered after the snack column element from the calendar list above
   let referencer = 0;//being the index holding each div within each day in the calendar. 0=breakfast, 1=lunch, 2=dinner
@@ -188,11 +188,11 @@ function renderPlanPage(currentPlan,weeklyBreakdown){
 
 
 function GetItemOrigin(item,listOfLists){//takes in instance of class course and returns a string representing the store it comes from. In the case of multiple stores, it will try to return Target first, then Meijer, then Amazon.
-    if (item.target){
+    if (item.target && selectedStores.includes("target")){
         listOfLists[0].push(item);
-    }else if(item.meijer){
+    }else if(item.meijer && selectedStores.includes("meijer")){
         listOfLists[1].push(item);
-    }else if(item.amazon){
+    }else if(item.amazon && selectedStores.includes("amazon")){
         listOfLists[2].push(item);
     }
     return listOfLists;
@@ -251,7 +251,6 @@ function renderStoreList(groceryList,position){
         list.appendChild(newItem);
     }); 
     listPage.appendChild(list);
-
 }
 
 function renderListPage(incomingPlan){
