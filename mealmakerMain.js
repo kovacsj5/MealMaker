@@ -1,4 +1,4 @@
-//Holds all buttons and UI event listeners.
+//Holds all buttons and UI event listeners and is the start of the program
 
 function getRowValue(j,row){ //just making the course instantiation more readable, and modifiable if I need to change the type of value to take out of each individual cell
   return row.values[j].formattedValue;
@@ -119,18 +119,18 @@ async function initiatePlan(listOfStoreButtons,url){ //Weaves user input togethe
   //dynamic in the future.
   coursesThisShop = courseInstances;//global variable for all available courses this shop
   selectedStores = chosenStores;//global variable for specific set of chosen stores for this shop
-  let setOfColumnz = []; 
+  
   for (let i = 0; i<3; i++){
-    setOfColumnz.push(CreateDay([],courseInstances));//adds all days to the calendar, snacks are added after this loop
+    setOfColumnz.push(createDay([],courseInstances,i));//adds all days to the calendar, snacks are added after this loop
   }
   setOfColumnz.push(getSnacks(snackInstances));//getSnacks returns a list that is static and fragile. When users have more flexibility, Ill have to revisit that function
   weeklyBreakdown = [0,0,1,1,2,2,2,3];// means [firstTypeofDay, secondTypeofDay, thirdTypeofDay, snackColmn] this is only hard coded right now because the priority is to get this working, later, the user will determine the number of days they want and the algorithm will figure out the cadence of everything 
   for (i in weeklyBreakdown){
-    mealPlan.push(setOfColumnz[weeklyBreakdown[i]]);//pushes class day of each column (including snack column) to the global variable called currentPlan
+    mealPlan.push(setOfColumnz[weeklyBreakdown[i]]);//pushes class day of each column (including snack column) to the global variable called mealPlan
   }
-  //setPortraitGridTemplateAreas(weeklyBreakdown); this comes later with UI update
+  //setPortraitGridTemplateAreas(weeklyBreakdown); //this comes later with UI update
   
-  renderPlanPage(mealPlan);
+  renderPlanPage(mealPlan,setOfColumnz);
   renderListPage(mealPlan);
   planPage.style.display = 'flex';
   homePage.style.display = 'none';
@@ -213,10 +213,12 @@ var mealPlan = [];//this is a global variable that contains the entire set of co
 //First it gets filled up, then rendered. When any course or snack is selected to be swapped, 
 //this variable is selected and then the relevant item is chosen, then the entire page is rerendered based on this now modified global 
 //variable. It is importannt that this variable sticks around when teh user is toggling between the views.
+let setOfColumnz = [];//this is the meal plan without the ammounts reflected. This variable is just to represent what meals are occurring, not to reflect the number of repeats.
 let weeklyBreakdown = [];//will be filled with a list of numbers, encoding which day of meals occurrs on which part of the calendar.
 const shoppingOptionButtons = [meijerButton, targetButton, amazonButton];
 let selectedStores = [];//will be filled with a list of strings reflecting all selected stores the user chooses before initiating the meal plan.
 let coursesThisShop = [];//will be filled with all actual instances of class course (snack or not) that are available at chosen stores. this list will be passed into functions like the swap function and probably others.
+
 meijerButton.addEventListener('click',()=>{
     toggleSelection(meijerButton);
 });
@@ -229,15 +231,17 @@ amazonButton.addEventListener('click',()=>{
 beginPlanButton.addEventListener('click',()=>{
     loadingPage.style.display = 'grid';
     homePage.style.display = 'none';
-    initiatePlan(shoppingOptionButtons,url);//takes in user input, makes all instances of class course, updates global variable currentPlan, and calls renderPlanPage 
+    initiatePlan(shoppingOptionButtons,url);//takes in user input, makes all instances of class course, updates global variable mealPlan, and calls renderPlanPage 
 });
 planPage.addEventListener('click',function(event){
     const clicked = event.target;
     if(clicked.classList.contains('course') || clicked.classList.contains('snack')){
-        swapCourse(clicked, coursesThisShop, mealPlan);
+        swapCourse(clicked, coursesThisShop);
+        
     }else if(clicked.classList.contains('navButton')){
         toggleView(clicked);
         renderListPage(mealPlan);
+        
     }
 });
 
