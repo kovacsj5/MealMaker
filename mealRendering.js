@@ -149,7 +149,7 @@ function renderPlanPage(mealPlan,setOfColumnz){
   while(calendarDiv.firstChild){//clears out the calendar before rendering a new one.
       calendarDiv.removeChild(calendarDiv.firstChild);
   }
-  let initialCalendarStrings = ["","Mon & Tue","Wed & Thu","Fri &Sat &Sun","Snacks","B"];//static now, but the number of these and what they start off with will be dynamic when the user has their profile
+  let initialCalendarStrings = ["","Mon & Tue","Wed & Thu","Fri&Sat&Sun","Snacks","B"];//static now, but the number of these and what they start off with will be dynamic when the user has their profile
   for (i in initialCalendarStrings){
       let newCell = document.createElement("div");
       newCell.innerHTML = initialCalendarStrings[i];
