@@ -12,11 +12,10 @@
 /*The below is for the home page*/
 #homeContainer{
     display: grid;
-    grid-template: repeat(3,calc(100vh/ 3)) / 10vw 80vw 10vw;
+    grid-template: repeat(3,calc(85vh/ 3)) / 10vw 80vw 10vw;
     justify-content: center;
     place-items: center;
     font-size: calc(100vh/15);
-    border: 2px solid black;
     text-align: center;
     font-family: Helvetica, 'Akzidenz Grotesk', Univers, 'FF Bau', 'ARS Maquette', 'Proxima Nova', National, 'Neue Montreal';
 }
@@ -27,9 +26,9 @@
 
 #beginPlanButton{
     display:none;
-    font-size: 10vh;
+    font-size: 9vh;
     border: 2px solid black;
-    padding: 4vh 4vw;
+    padding: 2vh 4vw;
     cursor: pointer;
     border-radius: min(2vw, 2vh);
     background-color:var(--darkGreen);
@@ -245,22 +244,21 @@
 @media only screen and (orientation: portrait){
     /*The below is for the home page in portrait mode*/
     #homeContainer{
-        grid-template: 20vh 20vh 60vh / 10vw 80vw 10vw;
-        font-size: min(6vh,9vw);
+        grid-template: 15vh 15vh 55vh / 10vw 80vw 10vw;
+        font-size: min(5vh,7vw);
     }
     #userPrompt{
-        height: 20vh;
+        height: 15vh;
     }
     #Welcome{
         font-size: min(7vh,9vw);
         display:grid;
         place-items: center;
-        height: 20vh;
     }
 
     #beginPlanButton{
         font-size: min(7vh,9vw);
-        padding: 3vh 4vw;
+        padding: 1vh 4vw;
     }
 
     .options{
@@ -297,11 +295,8 @@
     
     .title{
         font-size: min(3vh,3vw);
-        writing-mode: vertical-rl;
+        writing-mode: vertical-lr;
         text-orientation: upright;
-    }
-    .SnackTitle{
-        font-size: 1.5vh;
     }
 
     /*The below is for the nav bar in portrait mode*/

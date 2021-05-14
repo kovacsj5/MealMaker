@@ -23,24 +23,19 @@ function renderMealHelper(item, button, location, type){//takes in the string va
     button.location = location;//this assigns the location to an arbirary property to be used later
     button.item = item; //this assignes an arbitrary property to each button in the plan so that the instance of class course is more easily accessible when swapping the course if necessary
     button.setAttribute("id", name + "_" + location);//note that location comes in as an integer so I am counting on
-    const width = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+    const width = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    if(name.split(" ").length > 3){
+        button.style.fontSize = Math.sqrt(name.split(" ").length)*60/Math.sqrt(name.visualLength()*(name.split(" ").length)) + "vmin";
+    }else{
+        button.style.fontSize = 50/Math.sqrt(name.visualLength()) + "vmin";
+    }
     //button.style.fontSize = Math.sqrt(name.split(" ").length)*.4*100/Math.sqrt(name.visualLength()*(name.split(" ").length)) + "vmin";
     //in the line above I did my best to get the font to change to make the title of the food fit the actual contianer it has
     if (type === "snack"){
         button.kind = "snack";
         button.classList.add("snack");
-        if(name.split(" ").length > 3){
-            button.style.fontSize = Math.sqrt(name.split(" ").length)*.35*100/Math.sqrt(name.visualLength()*(name.split(" ").length)) + "vmin";
-        }else{
-            button.style.fontSize = .285*100/Math.sqrt(name.visualLength()) + "vmin";
-        }
     }else{
         button.kind = "course";
-        if(name.split(" ").length > 3){
-            button.style.fontSize = Math.sqrt(name.split(" ").length)*60/Math.sqrt(name.visualLength()*(name.split(" ").length)) + "vmin";
-        }else{
-            button.style.fontSize = 50/Math.sqrt(name.visualLength()) + "vmin";
-        }
     }
 }
 //takes in instance of class day, and a string naming breakfast, lunch or dinner, and the days location in the global meal plan array and returns a div containing buttons with the
