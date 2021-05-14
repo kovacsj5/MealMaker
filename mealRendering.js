@@ -1,4 +1,4 @@
-//All functions associated with rendering
+//All functions associated with rendering any page
 
 String.prototype.visualLength = function(){
     var ruler = document.querySelector("#ruler");
@@ -24,24 +24,29 @@ function renderMealHelper(item, button, location, type){//takes in the string va
     button.item = item; //this assignes an arbitrary property to each button in the plan so that the instance of class course is more easily accessible when swapping the course if necessary
     button.setAttribute("id", name + "_" + location);//note that location comes in as an integer so I am counting on
     const width = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-    if(width > 780){
-        button.style.fontSize = Math.sqrt(name.split(" ").length)*.4*100/Math.sqrt(name.visualLength()*(name.split(" ").length)) + "vmin";
-    }else{
-        button.style.fontSize = Math.sqrt(name.split(" ").length)*.4*100/Math.sqrt(name.visualLength()*(name.split(" ").length)) + "vmin";
-    }
     //button.style.fontSize = Math.sqrt(name.split(" ").length)*.4*100/Math.sqrt(name.visualLength()*(name.split(" ").length)) + "vmin";
     //in the line above I did my best to get the font to change to make the title of the food fit the actual contianer it has
     if (type === "snack"){
         button.kind = "snack";
         button.classList.add("snack");
+        if(name.split(" ").length > 3){
+            button.style.fontSize = Math.sqrt(name.split(" ").length)*.35*100/Math.sqrt(name.visualLength()*(name.split(" ").length)) + "vmin";
+        }else{
+            button.style.fontSize = .285*100/Math.sqrt(name.visualLength()) + "vmin";
+        }
     }else{
         button.kind = "course";
+        if(name.split(" ").length > 3){
+            button.style.fontSize = Math.sqrt(name.split(" ").length)*60/Math.sqrt(name.visualLength()*(name.split(" ").length)) + "vmin";
+        }else{
+            button.style.fontSize = 50/Math.sqrt(name.visualLength()) + "vmin";
+        }
     }
 }
 //takes in instance of class day, and a string naming breakfast, lunch or dinner, and the days location in the global meal plan array and returns a div containing buttons with the
 //proper names on them (the div is also formatted correctly)
-function renderMeal(day,time,location,weeklyBreakdown){
-    //weeklyBreakdown was included in the inputs but is currently not being used. I was mid construction of the new revamped UI when I 
+function renderMeal(day,time,location){
+    //weeklyBreakdown weeklyBreakdown is a global variable so it does not need to be passed in. I was mid construction of the new revamped UI when I 
     //moved into cleaning up the project to put it into presentation mode. When I go back to updating the UI, it will be used. The 
     //following 3 lines of code are a part of my workflow for that big UI update, so I kept them here for now aswell.
     // console.log("here is the --portraitTemplateAreas");
@@ -74,7 +79,7 @@ function renderMeal(day,time,location,weeklyBreakdown){
         //starchButton.innerHTML = day.breakfast.starchCourse.name; //this one does not apply yet
     }
     let mealDiv = document.createElement("div");
-    //addCssClassForGridAreaTemplate(mealDiv, weeklyBreakdown, time, location); this will be active when the new UI is functional
+    //addCssClassForGridAreaTemplate(mealDiv, time, location); this will be active when the new UI is functional
     
     mealDiv.appendChild(proteinButton);
     if (!filler){
@@ -87,7 +92,7 @@ function renderMeal(day,time,location,weeklyBreakdown){
     return mealDiv;
 }
 
-function renderSnack(day,time,location,weeklyBreakdown){
+function renderSnack(day,time,location){
     //weeklyBreakdown was included in the inputs but is currently not being used. I was mid construction of the new revamped UI when I 
     //moved into cleaning up the project to put it into presentation mode. When I go back to updating the UI, it will be used.
     let firstButton = document.createElement("BUTTON");
@@ -121,30 +126,30 @@ function renderSnack(day,time,location,weeklyBreakdown){
 
 // takes in an instance of class day and returns an HTML version of the day to be pushed into the dom
 // each day will be broken down into 3 sets of names. 
-function renderDay(plan,location,weeklyBreakdown){ //location is an integer which is only passed in to set a unique id on each course button that gets created in the calendar
+function renderColumn(plan,location){ //location is an integer which is only passed in to set a unique id on each course button that gets created in the calendar
     let day = plan[location];
     let columnDivs = [];
-    if(location == 7){
-        let breakfastDiv = renderSnack(day,"breakfast",location,weeklyBreakdown); 
-        let lunchDiv = renderSnack(day,"lunch",location,weeklyBreakdown);        
-        let dinnerDiv = renderSnack(day,"dinner",location,weeklyBreakdown);
+    if(location == 3){
+        let breakfastDiv = renderSnack(day,"breakfast",location); 
+        let lunchDiv = renderSnack(day,"lunch",location);        
+        let dinnerDiv = renderSnack(day,"dinner",location);
         columnDivs = [breakfastDiv,lunchDiv,dinnerDiv];
     }else{
-        let breakfastDiv = renderMeal(day,"breakfast",location,weeklyBreakdown); 
-        let lunchDiv = renderMeal(day,"lunch",location,weeklyBreakdown);        
-        let dinnerDiv = renderMeal(day,"dinner",location,weeklyBreakdown);
+        let breakfastDiv = renderMeal(day,"breakfast",location); 
+        let lunchDiv = renderMeal(day,"lunch",location);        
+        let dinnerDiv = renderMeal(day,"dinner",location);
         columnDivs = [breakfastDiv,lunchDiv,dinnerDiv];
     }
     return columnDivs;
 }
 
 
-function renderPlanPage(currentPlan,weeklyBreakdown){
+function renderPlanPage(mealPlan,setOfColumnz){
   const calendarDiv = document.querySelector('#calendar');
   while(calendarDiv.firstChild){//clears out the calendar before rendering a new one.
       calendarDiv.removeChild(calendarDiv.firstChild);
   }
-  let initialCalendarStrings = ["","Mon","Tue","Wed","Thu","Fri","Sat","Sun","Snacks","B"];
+  let initialCalendarStrings = ["","Mon & Tue","Wed & Thu","Fri &Sat &Sun","Snacks","B"];//static now, but the number of these and what they start off with will be dynamic when the user has their profile
   for (i in initialCalendarStrings){
       let newCell = document.createElement("div");
       newCell.innerHTML = initialCalendarStrings[i];
@@ -163,8 +168,8 @@ function renderPlanPage(currentPlan,weeklyBreakdown){
   lunchLabelDiv.classList.add('title');
   dinnerLabelDiv.classList.add('title');
   let calendar = [];
-  for (a in currentPlan){
-      calendar.push(renderDay(currentPlan,a,weeklyBreakdown));
+  for (a in setOfColumnz){
+      calendar.push(renderColumn(setOfColumnz,a));
   }
   let columnCounter = 0; //this is to make sure that the title div is entered after the snack column element from the calendar list above
   let referencer = 0;//being the index holding each div within each day in the calendar. 0=breakfast, 1=lunch, 2=dinner
@@ -172,14 +177,14 @@ function renderPlanPage(currentPlan,weeklyBreakdown){
     for(day in calendar){
         calendarDiv.appendChild(calendar[day][referencer]);
         columnCounter++;
-        if (columnCounter === 8){
+        if (columnCounter === 4){//used to be 8 when all days were separate. Trying 4 now for new UI
             if(referencer === 0){
-            calendarDiv.appendChild(lunchLabelDiv);
+                calendarDiv.appendChild(lunchLabelDiv);
             }else if(referencer === 1){
                 calendarDiv.appendChild(dinnerLabelDiv);
             }
-        referencer++;//because all of the breakfasts (or lunches) would have been added already. 
-        columnCounter = 0;   
+            referencer++;//because all of the breakfasts (or lunches) would have been added already. 
+            columnCounter = 0;   
         }
     }
   }
@@ -217,7 +222,6 @@ function renderStoreList(groceryList,position){
         list.appendChild(newItem);
     }); 
     listPage.appendChild(list);
-
 }
 
 function renderListPage(incomingPlan){
@@ -247,11 +251,11 @@ function renderListPage(incomingPlan){
 
 The below is for the UI update that will merge all identical, consecutive days
 
+*/
 
 
 
-
-
+/*
 function getLandscapeGridTemplateAreas(scheduleOrder){
     let landscapeAreas = [];//will be filled with a list of strings [row1 of areas, row2 of areas, row3 areas] in landscape areas, each row is the time of day [breakfast, lunch, dinner]
     let landscapeRow0 = "T0";//will be constructed alongside the first meaningfull row, T_ meaning the top left corner which always has nothing
@@ -271,19 +275,24 @@ function getLandscapeGridTemplateAreas(scheduleOrder){
         
     }
 }
-function setPortraitGridTemplateAreas (scheduleOrder){//takes in the weekly breakdown (which is a list of integers) of which unique meals are occurring when, and returns the strings that the grid template areas for the portrait mode (later, I will do the ones for landscape mode)
-    let portraitAreas = '"T0 TB TL TS" ';////S is for supper since D was already being used for day lol
+
+function setPortraitGridTemplateAreas (scheduleOrder){//uses the *global* weekly breakdown (which is a list of integers) of which unique meals are occurring when, and returns the strings that the grid template areas for the portrait mode (later, I will do the ones for landscape mode)
+    let portraitAreas = '';
+    let portraitRowBuilder = '';
     for (i in scheduleOrder){
-        let portraitRowBuilder = '"TD'+ i + ' ';//starts off with a new day every time
-        portraitRowBuilder += 'B'+ (scheduleOrder[i]) + ' ' + 'L'+ (scheduleOrder[i]) + ' ' + 'S'+ (scheduleOrder[i] + '" '); 
+        if (i == 0){
+            portraitAreas += '"T0 TB TL TD" ';
+        }
+        portraitRowBuilder = '"TR' + i + ' ';//R means row
+        portraitRowBuilder += 'B'+ (scheduleOrder[i]) + ' ' + 'L'+ (scheduleOrder[i]) + ' ' + 'D'+ (scheduleOrder[i] + '" '); 
         portraitAreas+=portraitRowBuilder;
         console.log(portraitRowBuilder);
     }
     console.log("PA: "+ portraitAreas);
     document.querySelector(':root').style.setProperty('--portraitTemplateAreas', portraitAreas);
 }
-
-addCssClassForGridAreaTemplate(mealDiv, weeklyBreakdown, time, location){
+/*
+function addCssClassForGridAreaTemplate(mealDiv, time, location){
     if (time === "breakfast"){ // these are to put the right class on the meal so that they can go into all necessary grid areas
         CSSclass = "B" + weeklyBreakdown[location];
         var style = document.createElement('style');
@@ -306,5 +315,10 @@ addCssClassForGridAreaTemplate(mealDiv, weeklyBreakdown, time, location){
         mealDiv.classList.add(CSSclass);
         console.log("CSSclass: "+ CSSclass);
     }
+}
+
+function fillGridTemplateAreas(){//uses global variable mealPLan to assign each unique day (including snackset) to each proper grid area
+
+
 }
 */
