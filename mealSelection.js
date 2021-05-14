@@ -1,4 +1,4 @@
-//All functions associated with what courses are actually chosen for rendering
+//All functions associated with what courses are actually chosen for rendering and what courses are selected in the swaping functionality
 
 //takes in a list of available snacks from stores for this shop and returns the ones chosen for this shop
 function getSnacks(snackInstances){
