@@ -12,25 +12,25 @@
 /*The below is for the home page*/
 #homeContainer{
     display: grid;
-    grid-template: repeat(3,calc(85vh/ 3)) / 10vw 80vw 10vw;
+    grid-template: repeat(3,calc(calc(var(--vh, 1vh) * 97.5)/ 3)) / 10vw 80vw 10vw;
     justify-content: center;
     place-items: center;
-    font-size: calc(100vh/15);
+    font-size: calc(calc(var(--vh, 1vh) * 100)/15);
     text-align: center;
     font-family: Helvetica, 'Akzidenz Grotesk', Univers, 'FF Bau', 'ARS Maquette', 'Proxima Nova', National, 'Neue Montreal';
 }
 
 #Welcome{
-    font-size: 10vh; 
+    font-size: calc(var(--vh, 1vh) * 10); 
 }
 
 #beginPlanButton{
     display:none;
-    font-size: 9vh;
+    font-size: calc(var(--vh, 1vh) * 9);
     border: 2px solid black;
-    padding: 2vh 4vw;
+    padding: calc(var(--vh, 1vh) * 2) 4vw;
     cursor: pointer;
-    border-radius: min(2vw, 2vh);
+    border-radius: min(2vw, calc(var(--vh, 1vh) * 2));
     background-color:var(--darkGreen);
     color:var(--offWhite);
 }
@@ -46,19 +46,19 @@
 }
 
 .optionUnclicked{
-    font-size: 4vh;
+    font-size: calc(var(--vh, 1vh) * 4);
     border: 2px solid black;
-    padding: 4vh 4vw;
+    padding: calc(var(--vh, 1vh) * 4) 4vw;
     cursor: pointer;
-    border-radius: min(2vw, 2vh);
+    border-radius: min(2vw, calc(var(--vh, 1vh) * 2));
 }
 
 .optionClicked{
-    font-size: 2vh;
+    font-size: calc(var(--vh, 1vh) * 2);
     border: 2px solid rgb(0, 0, 0);
-    padding: 4vh 4vw;
+    padding: calc(var(--vh, 1vh) * 4) 4vw;
     cursor: pointer;
-    border-radius: min(2vw, 2vh);
+    border-radius: min(2vw, calc(var(--vh, 1vh) * 2));
 }
 
 #meijer{
@@ -70,13 +70,13 @@
     background-color:crimson;
     color:white;
     font-weight: bold;
-    padding: 4vh 4.2vw;
+    padding: calc(var(--vh, 1vh) * 4) 4.2vw;
 }
 #amazon{
     background-color:black;
     color:rgb(226, 217, 90);
     font-weight: bold;
-    padding: 4vh 2.7vw;
+    padding: calc(var(--vh, 1vh) * 4) 2.7vw;
 }
 
 /* The below is for the calendar page*/
@@ -96,10 +96,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: min(1px,1vh);
+    border: min(1px,calc(var(--vh, 1vh) * 1));
     border-style: solid none;
     border-color:var(--sBlack);
-    font-size: min(4vh,4vw);
+    font-size: min(calc(var(--vh, 1vh) * 4),4vw);
     background-color: var(--darkGreen);
     color:var(--offWhite);
 }
@@ -108,11 +108,11 @@
     display: grid;
     align-items: center;
     font-family: lato;
-    padding: .2vh .2vw;
+    padding: calc(var(--vh, 1vh) * .2) .2vw;
     background-color:var(--offWhite);
-    border: min(.05vw,.05vh);
+    border: min(.05vw,calc(var(--vh, 1vh) * .05));
     cursor: pointer;
-    border-radius:min(1.5vw, 1.5vh);
+    border-radius:min(1.5vw, calc(var(--vh, 1vh) * 1.5));
     height: 94%;
     width: 98%;
     color: var(--sGrey);
@@ -121,15 +121,15 @@
 .snack{
     justify-content: center;
     align-items: center;
-    border: min(.05vw,.05vh);
+    border: min(.05vw,calc(var(--vh, 1vh) * .05));
     border-color: solid var(--sBlack);
-    padding: .2vh .2vw;
+    padding: calc(var(--vh, 1vh) * .2) .2vw;
     background-color:var(--lightYellow);
     cursor: pointer;
     height: 94%;
     width: 98%;
     color: var(--sGrey);
-    border-radius:min(1.5vw, 1.5vh);
+    border-radius:min(1.5vw, calc(var(--vh, 1vh) * 1.5));
     font-family: lato;
 }
 
@@ -168,7 +168,7 @@
 
 .calendar{
     display: grid;
-    grid-template: 5vh repeat(3, calc(70vh/3)) / 3vw 1fr 1fr 1fr 1fr;
+    grid-template: 5vh repeat(3, calc(calc(var(--vh, 1vh) * 86)/3)) / 3vw 1fr 1fr 1fr 1fr;
     width: 100%;
 }
 
@@ -194,8 +194,8 @@
 /*The below is for the nav bar*/
 #calendarToListToggler{
     display: flex;
-    height: 8vh;
-    font-size: 6vh;
+    height: calc(var(--vh, 1vh) * 7);
+    font-size: calc(var(--vh, 1vh) * 5);
     cursor: pointer;
     width:100%;
     text-align:center;
@@ -219,7 +219,7 @@
 /*The below is for the list page*/
 #list{
     display:none;
-    height:90vh;
+    height:calc(var(--vh, 1vh) * 90);
     width:100%;
     
 }
@@ -231,56 +231,63 @@
 }
 
 .listTitle{
-    font-size: 5vh;
+    font-size: calc(var(--vh, 1vh) * 5);
     padding: 2vw;
 }
 
 .listItem{
-   font-size: calc(2.2vh + .2vh*var(--numberOfLists)); 
+   font-size: calc(calc(var(--vh, 1vh) * 2.2) + calc(var(--vh, 1vh) * .2)*var(--numberOfLists)); 
 }
 
+#errorPage{
+    display: none;
+    font-size:calc(var(--vh, 1vh) * 20);
+    align-content: center;
+    justify-content: center;
+
+}
 
 /*Below is for any case where the height of the viewport is more than the width of the viewport*/
 @media only screen and (orientation: portrait){
     /*The below is for the home page in portrait mode*/
     #homeContainer{
-        grid-template: 15vh 15vh 55vh / 10vw 80vw 10vw;
-        font-size: min(5vh,7vw);
+        grid-template: calc(var(--vh, 1vh) * 23) calc(var(--vh, 1vh) * 15) calc(var(--vh, 1vh) * 60) / 10vw 80vw 10vw;
+        font-size: min(calc(var(--vh, 1vh) * 5),7vw);
     }
     #userPrompt{
-        height: 15vh;
+        height: calc(var(--vh, 1vh) * 15);
     }
     #Welcome{
-        font-size: min(7vh,9vw);
+        font-size: min(calc(var(--vh, 1vh) * 7),9vw);
         display:grid;
         place-items: center;
     }
 
     #beginPlanButton{
-        font-size: min(7vh,9vw);
-        padding: 1vh 4vw;
+        font-size: min(calc(var(--vh, 1vh) * 7),9vw);
+        padding: calc(var(--vh, 1vh) * 1) 4vw;
     }
 
     .options{
         grid-template-columns: 80vw;
-        grid-template-rows: repeat(3, 20vh); 
-        height: 60vh;
+        grid-template-rows: repeat(3, calc(var(--vh, 1vh) * 20)); 
+        
     }
     #target{
-        padding: 3vh 4.2vw;
+        padding: calc(var(--vh, 1vh) * 3) 4.2vw;
     }
     .optionClicked{
-        padding: 3vh 3vw;
+        padding: calc(var(--vh, 1vh) * 3) 3vw;
     }
     #amazon{
-        padding: 3vh 2.3vw;
+        padding: calc(var(--vh, 1vh) * 3) 2.3vw;
     }
 
     /*The below is for the calendar page in portrait mode*/
     .calendar{
-        grid-template: 2vh repeat(4,1fr) / 5vw repeat(3, 1fr);
+        grid-template: calc(var(--vh, 1vh) * 2) repeat(4,1fr) / 5vw repeat(3, 1fr);
         grid-auto-flow: column;
-        height:78vh;
+        height:calc(var(--vh, 1vh) * 93);
         
     }
     .mealWith1Courses{
@@ -294,28 +301,28 @@
     }
     
     .title{
-        font-size: min(3vh,3vw);
+        font-size: min(calc(var(--vh, 1vh) * 3),3vw);
         writing-mode: vertical-lr;
         text-orientation: upright;
     }
 
     /*The below is for the nav bar in portrait mode*/
     #calendarToListToggler{
-        height: 6vh;
-        font-size: 4vh;
+        height: calc(var(--vh, 1vh) * 6);
+        font-size: calc(var(--vh, 1vh) * 4);
     }
 
     
     /*The below is for the list page in portrait mode*/
     #list{
         flex-direction: column;
-        height:94vh;
+        height:calc(var(--vh, 1vh) * 92);
     }
     .listTitle{
         padding: 1vw;
     }
     .listItem{
-        font-size: 2vh; 
+        font-size: calc(var(--vh, 1vh) * 2); 
      }
      .listSection{
         width: 100%;
