@@ -46,6 +46,14 @@ function createCourses(response){//takes in the data from the GET request and re
   }
   return courses;
 }
+
+function rejectedRequest(){//this is meant to refresh the page with some form of error
+    console.log("eyyyyyyyyyyy");
+    errorPage.style.display = 'flex';
+    loadingPage.style.display = 'none';
+    setTimeout("location.reload(true);", 5000);
+}
+
 function getData(url){ //GET request that looks at the groceries spreadsheet and returns the data from the only sheet there.
     return new Promise((resolve,reject)=>{
         let request = new XMLHttpRequest();
@@ -57,8 +65,9 @@ function getData(url){ //GET request that looks at the groceries spreadsheet and
                     console.log("resolved");
                 }
                 else{
-                    reject(JSON.parse(request.response));
-                    console.log("rejected");
+                    console.log("pre reject statement");
+                    reject(rejectedRequest());
+                    console.log("post reject statement");
                 }
             }
         };
@@ -86,6 +95,7 @@ function getUserInput(listOfStoreButtons){
 async function initiatePlan(listOfStoreButtons,url){ //Weaves user input together with spreadsheet data to create plan and then renders it. Then returns true to start the course interface function
   const chosenStores = await getUserInput(listOfStoreButtons);
   const data = await getData(url);
+   
   let courses = createCourses(data);
   var courseInstances = [];//this will be filled with a list of instances of class course that will be used to make the meal plan based on where the shopper is shopping this time
   var courseInstanceNames = []//this will be filled with a list of names for all instances of class course in the above list
@@ -196,16 +206,24 @@ function toggleView(clicked){
 //the below is the start of the program. The user inputs where they are shopping from and this is used as a filter for building the meal pool later.
 url = "https://sheets.googleapis.com/v4/spreadsheets/11aibV_WA-Lq7mQKwM7twxWogzjBBw4K9mRduhP0T_qA/?key=AIzaSyAK643mJ9zPsQcJGi7GMVcXzgPvMJ-O_so&includeGridData=true"
 //let courses = getCourses(url);
+//url = "https://sheets.googleapis.com/v4/spreets/11aibw4K9mRduhP0T_qA/?key=AIzaSyAK643mJ9zPsQcJGi7GMVcXzgPvMJ-O_so&includeGridData=true"//bad one
+// First we get the viewport height and width and we multiply them by 1% to get a value for a vh & vw unit
+let vh = window.innerHeight * 0.01;
+let vw = window.innerWidth * .01;
+// Then we set the value in the --vh and --vw custom properties to the root of the document
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+document.documentElement.style.setProperty('--vw', `${vw}px`);
 
 const meijerButton = document.querySelector('#meijer');
 const targetButton = document.querySelector('#target');
 const amazonButton = document.querySelector('#amazon');
 const beginPlanButton = document.querySelector('#beginPlanButton');
 const welcomeMessage = document.querySelector('#Welcome');
-const userPrompt = document.querySelector('#userPrompt'); 
+const userPrompt = document.querySelector('#userPrompt');
 const planPage = document.querySelector('#planPage');
 const homePage = document.querySelector('#homeContainer');
 const loadingPage = document.querySelector('#loadingGif');
+const errorPage = document.querySelector('#errorPage');
 const calendarSpace = document.querySelector('#calendar');
 
 var mealPlan = [];//this is a global variable that contains the entire set of courses and snacks that have been chosen,
@@ -219,6 +237,14 @@ const shoppingOptionButtons = [meijerButton, targetButton, amazonButton];
 let selectedStores = [];//will be filled with a list of strings reflecting all selected stores the user chooses before initiating the meal plan.
 let coursesThisShop = [];//will be filled with all actual instances of class course (snack or not) that are available at chosen stores. this list will be passed into functions like the swap function and probably others.
 
+// We listen to the resize event
+window.addEventListener('resize', () => {
+    // We execute the same scripts as above (under the URL)
+    let vh = window.innerHeight * 0.01;
+    let vw = window.innerWidth * .01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    document.documentElement.style.setProperty('--vw', `${vw}px`);
+  });
 meijerButton.addEventListener('click',()=>{
     toggleSelection(meijerButton);
 });
