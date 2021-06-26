@@ -1,5 +1,14 @@
 //All functions associated with what courses are actually chosen for rendering
 
+//shuffling function found here https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+
 //takes in a list of available snacks from stores for this shop and returns the ones chosen for this shop
 function getSnacks(snackInstances){
     let snackList = [];//to be filled with a snack of every category (veggie, fruit, protein, junk & drink) and then returned
@@ -128,6 +137,7 @@ function WiddleDownCourses(time, grainStarchAllowed, processedProteinAllowed, ne
   
   //takes in course and list of all possible courses available this shop and finds a valid replacement for the passed in course (works for snacks too)
   function replacementFinder(course, type, availableCourses){
+
       let exhaustedMenuMessage = null;//will be made into the dummy course for use if all courses have been vetoed by user
       if(type === "snack"){
           for (i in availableCourses){
@@ -156,6 +166,7 @@ function WiddleDownCourses(time, grainStarchAllowed, processedProteinAllowed, ne
   
   //this function takes in the selected button, and locates a all identical button and replaces them with buttons representing different items (with the same profile) than before
   function swapCourse(button, availableCourses, currentPlan){
+    shuffleArray(availableCourses); //makes the order of the replacement suggestions not show up in the same order every time the program is ran.
     let item = button.item;//gets instance of class course associated with this button.
     if(item.name !== "No item will sate your sadistic vetoing"){//this way, even if the user vetoes the joke item, it will stay for the duration of the user experience, since there would literally be nothing else to replace that spot in the calendar that the user hasn't already vetoed.
         for (i in availableCourses){
